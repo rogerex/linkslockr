@@ -1,3 +1,5 @@
+linkslockr.SafeLinkDecrypter = SafeLinkDecrypter;
+
 function SafeLinkDecrypter(url) {
   this.linkUrl = url;
   this.SafeLinkRequestURL = "http://safelinking.net/v1/protected";

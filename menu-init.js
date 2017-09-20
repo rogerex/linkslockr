@@ -1,12 +1,11 @@
 function onClickHandler(info, tab) {
   if (info.menuItemId == "unlockerLink") {
-    console.log(info);
-	if (info.linkUrl.includes("http://puya.si/enc")) {
-		chrome.tabs.create({ url: info.linkUrl });
-	} else if (info.linkUrl.includes("http://safelinking.net/")) {
-		var decrypter = new SafeLinkDecrypter(info.linkUrl);
-		decrypter.decrypt();
-    } else {
+	var manager = new DecrypterManager(info.linkUrl);
+	
+	if (manager.isValidURL()) {
+	  manager.decrypt();
+	} else {
+	  console.log("The URL: '" + info.linkUrl + "' is not valid.");
 	  alert("This is not a valid Link.");
 	}
   }
