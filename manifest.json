@@ -1,0 +1,11 @@
+{
+  "name": "Links Unlocker",
+  "description": "Decrypt CNL Links directly",
+  "version": "0.1",
+  "permissions": ["contextMenus"],
+  "background": {
+    "persistent": false,
+    "scripts": ["menu-init.js"]
+  },
+  "manifest_version": 2
+}
