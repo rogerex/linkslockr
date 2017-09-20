@@ -7,7 +7,6 @@ function SafeLinkDecrypter(url) {
   
   this.decrypt = function() {
 	var hash = this.linkUrl.replace(this.SafeLinkBaseURL, "");
-	var params = "hash=" + hash;
 		
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", this.SafeLinkRequestURL, true);
