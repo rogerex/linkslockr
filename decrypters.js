@@ -2,7 +2,7 @@ linkslockr.decrypters = [
   {
     id: "puyaLink",
     key: "http://puya.si/enc",
-    decrypter: function (url) {}
+    decrypter: linkslockr.PuyaLinkDecrypter
   },
   {
     id: "safelinkingLink",
