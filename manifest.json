@@ -12,9 +12,9 @@
     "persistent": false,
     "scripts": [
 	  "context-decrypter.js", 
-	  "safelink-decrypter.js", 
+	  "decrypters/safelink-decrypter.js", 
 	  "decrypters/puyalink-decrypter.js", 
-	  "decrypters.js", 
+	  "decrypters/decrypters.js", 
 	  "decrypter-manager.js", 
 	  "menu-init.js"
 	]
