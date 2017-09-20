@@ -8,7 +8,7 @@
   ],
   "background": {
     "persistent": false,
-    "scripts": ["menu-init.js"]
+    "scripts": ["safelink-decrypter.js", "menu-init.js"]
   },
   "manifest_version": 2
 }

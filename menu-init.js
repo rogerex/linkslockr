@@ -4,20 +4,8 @@ function onClickHandler(info, tab) {
 	if (info.linkUrl.includes("http://puya.si/enc")) {
 		chrome.tabs.create({ url: info.linkUrl });
 	} else if (info.linkUrl.includes("http://safelinking.net/")) {
-		var hash = info.linkUrl.replace("http://safelinking.net/", "");
-		var params = "hash=" + hash;
-		
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "http://safelinking.net/v1/protected", true);
-		xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.onreadystatechange = function() {
-		  if (xhr.readyState == 4) {
-			var response = JSON.parse(xhr.responseText);
-			var decryptedURL = response.links[0].url;
-			chrome.tabs.create({ url: decryptedURL });
-		  }
-		}
-		xhr.send(JSON.stringify({ hash: hash }));
+		var decrypter = new SafeLinkDecrypter(info.linkUrl);
+		decrypter.decrypt();
     } else {
 	  alert("This is not a valid Link.");
 	}
