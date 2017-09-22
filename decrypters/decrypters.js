@@ -1,12 +1,12 @@
 linkslockr.decrypters = [
   {
     id: "puyaLink",
-    key: "http://puya.si/enc",
+    keys: ["http://puya.si/enc"],
     decrypter: linkslockr.PuyaLinkDecrypter
   },
   {
     id: "safelinkingLink",
-    key: "http://safelinking.net/",
+    keys: ["http://safelinking.net/", "https://safelinking.net/"],
     decrypter: linkslockr.SafeLinkDecrypter
   }
 ];

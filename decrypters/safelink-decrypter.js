@@ -3,10 +3,10 @@ linkslockr.SafeLinkDecrypter = SafeLinkDecrypter;
 function SafeLinkDecrypter(url) {
   this.linkUrl = url;
   this.SafeLinkRequestURL = "http://safelinking.net/v1/protected";
-  this.SafeLinkBaseURL = "http://safelinking.net/";
   
   this.decrypt = function() {
-	var hash = this.linkUrl.replace(this.SafeLinkBaseURL, "");
+	var index = this.linkUrl.lastIndexOf("/");
+	var hash = this.linkUrl.substring(index + 1, this.linkUrl.length);
 		
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", this.SafeLinkRequestURL, true);

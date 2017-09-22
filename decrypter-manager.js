@@ -10,9 +10,7 @@ function DecrypterManager(url) {
 	while(!isValid && i < linkslockr.decrypters.length) {
 	  var decrypterInfo = linkslockr.decrypters[i];
 	  
-      if (this.linkUrl.includes(decrypterInfo.key)) {
-		isValid = true;
-      }
+      isValid = includeInArray(decrypterInfo.keys, this.linkUrl);
 	  
 	  i++;
 	}
@@ -27,7 +25,7 @@ function DecrypterManager(url) {
 	while(decrypterNotFound && i < linkslockr.decrypters.length) {
 	  var decrypterInfo = linkslockr.decrypters[i];
 	  
-      if (this.linkUrl.includes(decrypterInfo.key)) {
+      if (includeInArray(decrypterInfo.keys, this.linkUrl)) {
 		decrypterNotFound = false;
 		contextDecrypt(this.linkUrl, decrypterInfo.decrypter);
       }
@@ -40,5 +38,19 @@ function DecrypterManager(url) {
 	var decrypter = new decrypterConstructor(url);
 	var context = new ContextDecrypter(decrypter);
 	context.decrypt();
+  }
+  
+  function includeInArray(array, include) {
+	var i = 0;
+	var included = false;
+	
+	while (i < array.length && !included) {
+		if (include.includes(array[i])) {
+			included = true;
+		}
+		i++;
+	}
+	
+	return included;
   }
 }
