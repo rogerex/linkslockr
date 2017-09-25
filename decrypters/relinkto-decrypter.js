@@ -3,9 +3,6 @@ linkslockr.ReLinkToDecrypter = ReLinkToDecrypter;
 function ReLinkToDecrypter(url) {
   this.linkUrl = url;
   
-  var DecrypterBaseURL = "https://codebeautify.org/encryptDecrypt/decrypt";
-  var Key = 0;
-  
   this.decrypt = function() {	
 	sendGetRequest(this.linkUrl);
   }
@@ -16,32 +13,39 @@ function ReLinkToDecrypter(url) {
 	
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
-			manageResponse1(xhr);
+			manageResponse(xhr);
 		}
     }
 	xhr.send();
   }
   
-  function manageResponse1(xhr) {
+  function manageResponse(xhr) {
 	if (xhr.status == 200) {
-	  var firstIndex = xhr.responseText.indexOf('"crypted"') + 17 + 15;
-	  var lastIndex = xhr.responseText.indexOf('"', firstIndex);
-	  var value = xhr.responseText.substring(firstIndex, lastIndex);
+	  var key = getKey(xhr.responseText);
+	  var value = getValue(xhr.responseText);
 	  
-	  var firstIndex1 = xhr.responseText.indexOf('"jk"') + 12 + 25;
-	  var lastIndex1 = xhr.responseText.indexOf("'", firstIndex1);
-	  var key = xhr.responseText.substring(firstIndex1, lastIndex1);
-	  
-	  key = f(key);
-	  Key = getKey(key);
-	  
-	  decryptValue(value);
+	  decryptValue(key, value);
 	} else if (xhr.status == 302) {
       var newUrl = xhr.getResponseHeader("Location");
 	  sendGetRequest(newUrl);
     } else {
-	  alert("Something is wrong with the ReLlinkTo server.");
+	  alert("Something is wrong with the RelinkTo server.");
 	}
+  }
+  
+  function getValue(responseText) {
+	var firstIndex = responseText.indexOf('"crypted"') + 17 + 15;
+	var lastIndex = responseText.indexOf('"', firstIndex);
+	return responseText.substring(firstIndex, lastIndex);
+  }
+  
+  function getKey(responseText) {
+	var firstIndex = responseText.indexOf('"jk"') + 12 + 25;
+	var lastIndex = responseText.indexOf("'", firstIndex);
+	var keyText = responseText.substring(firstIndex, lastIndex);
+	  
+	var modifiedKey = f(keyText);
+	return decryptKey(modifiedKey);
   }
   
   function f(org){
@@ -54,7 +58,7 @@ function ReLinkToDecrypter(url) {
     return dec; 
   }
   
-  function getKey(data) {
+  function decryptKey(data) {
 	var result8 = hex2text(data)
     return unescape(encodeURIComponent(result8));
   }
@@ -76,31 +80,8 @@ function ReLinkToDecrypter(url) {
 	return text;
   }
   
-  function decryptValue(valueText) {
-	var data = new FormData();
-	data.append('key', Key);
-	data.append('alg', 'rijndael-128');
-	data.append('mode', 'cbc');
-	data.append('text', valueText);
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", DecrypterBaseURL, true);
-	
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4) {
-			manageResponse2(xhr);
-		}
-    }
-	
-	xhr.send(data);
-  }
-  
-  function manageResponse2(xhr) {
-	if (xhr.status == 200) {
-	  var decryptedURL = "https://mega.nz/" + xhr.responseText;
-	  chrome.tabs.create({ url: decryptedURL });
-	} else {
-	  alert("Something is wrong with the Decrypter server.");
-	}
+  function decryptValue(keyText, valueText) {
+	var decrypter = new linkslockr.RijndaelDecrypter();
+	decrypter.decrypt(keyText, valueText);
   }
 }
