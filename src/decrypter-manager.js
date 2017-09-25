@@ -1,7 +1,9 @@
 linkslockr.DecrypterManager = DecrypterManager;
+linkslockr.Utils = Utils;
 
 function DecrypterManager(url) {
   this.linkUrl = url;
+  this.utils = new linkslockr.Utils();
   
   this.isValidURL = function() {
 	var isValid = false;
@@ -10,7 +12,7 @@ function DecrypterManager(url) {
 	while(!isValid && i < linkslockr.decrypters.length) {
 	  var decrypterInfo = linkslockr.decrypters[i];
 	  
-      isValid = includeInArray(decrypterInfo.keys, this.linkUrl);
+      isValid = this.utils.includeInArray(decrypterInfo.keys, this.linkUrl);
 	  
 	  i++;
 	}
@@ -25,9 +27,9 @@ function DecrypterManager(url) {
 	while(decrypterNotFound && i < linkslockr.decrypters.length) {
 	  var decrypterInfo = linkslockr.decrypters[i];
 	  
-      if (includeInArray(decrypterInfo.keys, this.linkUrl)) {
+      if (this.utils.includeInArray(decrypterInfo.keys, this.linkUrl)) {
 		decrypterNotFound = false;
-		contextDecrypt(this.linkUrl, decrypterInfo.decrypter);
+		this.decrypterDecrypt(decrypterInfo.decrypter);
       }
 	  
 	  i++;
@@ -36,13 +38,15 @@ function DecrypterManager(url) {
 	return !decrypterNotFound;
   }
   
-  function contextDecrypt(url, decrypterConstructor) {
-	var decrypter = new decrypterConstructor(url);
-	var context = new ContextDecrypter(decrypter);
+  this.decrypterDecrypt = function (decrypterClass) {
+	var decrypter = new decrypterClass(this.linkUrl);
+	var context = new linkslockr.ContextDecrypter(decrypter);
 	context.decrypt();
   }
-  
-  function includeInArray(array, include) {
+}
+
+function Utils() {
+  this.includeInArray = function (array, include) {
 	var i = 0;
 	var included = false;
 	
