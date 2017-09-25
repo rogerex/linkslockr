@@ -1,6 +1,6 @@
 function onClickHandler(info, tab) {
   if (info.menuItemId == "unlockerLink") {
-	var manager = new DecrypterManager(info.linkUrl);
+	var manager = new linkslockr.DecrypterManager(info.linkUrl);
 	
 	if (manager.isValidURL()) {
 	  manager.decrypt();
