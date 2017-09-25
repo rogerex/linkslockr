@@ -5,7 +5,7 @@ describe("Context Decrypter Suite", function() {
 	}
 	spyOn(decrypter, 'decrypt');
 	
-    var context = new ContextDecrypter(decrypter);
+    var context = new linkslockr.ContextDecrypter(decrypter);
 	context.decrypt();
 	
 	expect(decrypter.decrypt).toHaveBeenCalled();

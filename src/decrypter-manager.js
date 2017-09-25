@@ -32,6 +32,8 @@ function DecrypterManager(url) {
 	  
 	  i++;
 	}
+	
+	return !decrypterNotFound;
   }
   
   function contextDecrypt(url, decrypterConstructor) {
