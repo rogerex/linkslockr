@@ -14,7 +14,8 @@
     "scripts": [
 	  "context-decrypter.js", 
 	  "utils/key-value-finder.js",
-	  "decrypters/rijndael-decrypter.js",
+	  "decrypters/common/base16-decrypter.js",
+	  "decrypters/common/rijndael-decrypter.js",
 	  "decrypters/safelink-decrypter.js", 
 	  "decrypters/puyalink-decrypter.js",
 	  "decrypters/relinkto-decrypter.js",
