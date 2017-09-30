@@ -21,10 +21,9 @@ function ReLinkToDecrypter(url) {
   
   function manageResponse(xhr) {
 	if (xhr.status == 200) {
-	  var key = getKey(xhr.responseText);
-	  var value = getValue(xhr.responseText);
+	  var keyValue = getKeyValue(xhr.responseText);
 	  
-	  decryptValue(key, value);
+	  decryptValue(keyValue);
 	} else if (xhr.status == 302) {
       var newUrl = xhr.getResponseHeader("Location");
 	  sendGetRequest(newUrl);
@@ -33,21 +32,19 @@ function ReLinkToDecrypter(url) {
 	}
   }
   
-  function getValue(responseText) {
-	var firstIndex = responseText.indexOf('"crypted"') + 17 + 15;
-	var lastIndex = responseText.indexOf('"', firstIndex);
-	return responseText.substring(firstIndex, lastIndex);
+  function getKeyValue(responseText) {
+	var finder = new linkslockr.KeyValueFinder(responseText);
+	return {
+		key: getKey(finder.getKey(12 + 25)),
+		value: finder.getValue(17 + 15)
+	};
   }
   
-  function getKey(responseText) {
-	var firstIndex = responseText.indexOf('"jk"') + 12 + 25;
-	var lastIndex = responseText.indexOf("'", firstIndex);
-	var keyText = responseText.substring(firstIndex, lastIndex);
-	  
+  function getKey(keyText) {
 	var modifiedKey = f(keyText);
 	return decryptKey(modifiedKey);
   }
-  
+
   function f(org){
     var dec = ''; 
     var i = 0; 
@@ -57,12 +54,12 @@ function ReLinkToDecrypter(url) {
     } 
     return dec; 
   }
-  
+
   function decryptKey(data) {
 	var result8 = hex2text(data)
     return unescape(encodeURIComponent(result8));
   }
-  
+
   function hex2text(hex) {
 	hex = hex.toUpperCase();
 	if (hex.length % 2)
@@ -80,8 +77,8 @@ function ReLinkToDecrypter(url) {
 	return text;
   }
   
-  function decryptValue(keyText, valueText) {
+  function decryptValue(keyValue) {
 	var decrypter = new linkslockr.RijndaelDecrypter();
-	decrypter.decrypt(keyText, valueText);
+	decrypter.decrypt(keyValue.key, keyValue.value);
   }
 }
