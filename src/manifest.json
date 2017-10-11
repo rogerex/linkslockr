@@ -27,7 +27,7 @@
       "downloaders/chrome-tab.js",
       "downloaders/downloaders.js",
       "decrypter-manager.js",
-      "downloader-manager.js",
+      "download-manager.js",
       "menu-init.js"
     ]
   },

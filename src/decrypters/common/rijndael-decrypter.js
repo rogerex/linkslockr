@@ -26,7 +26,7 @@ function RijndaelDecrypter() {
   function manageResponse(xhr) {
     if (xhr.status == 200) {
       var decryptedURL = "https://mega.nz/" + xhr.responseText;
-      var manager = new linkslockr.DownloaderManager(decryptedURL);
+      var manager = new linkslockr.DownloadManager(decryptedURL);
       manager.download();
     } else {
       alert("Something is wrong with the Decrypter server.");

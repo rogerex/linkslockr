@@ -9,8 +9,8 @@ describe("Rijndael Decrypter", function() {
 
   it("It is Valid for decryption", function() {
     var manager;
-    spyOn(linkslockr, 'DownloaderManager').and.callFake(function(url) {
-      manager = new DownloaderManager(url);
+    spyOn(linkslockr, 'DownloadManager').and.callFake(function(url) {
+      manager = new DownloadManager(url);
       manager.download = function () {};
 
       spyOn(manager, 'download');

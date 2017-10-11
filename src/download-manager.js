@@ -1,6 +1,6 @@
-linkslockr.DownloaderManager = DownloaderManager;
+linkslockr.DownloadManager = DownloadManager;
 
-function DownloaderManager(url) {
+function DownloadManager(url) {
   this.linkUrl = url;
   
   this.download = function() {

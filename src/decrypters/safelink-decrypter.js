@@ -27,7 +27,7 @@ function SafeLinkDecrypter(url) {
       for (var i = 0; i < response.links.length; i++) {
         var linkInfo = response.links[i];
         var decryptedURL = linkInfo.url;
-        var manager = new linkslockr.DownloaderManager(decryptedURL);
+        var manager = new linkslockr.DownloadManager(decryptedURL);
         manager.download();
       }
     } else {
