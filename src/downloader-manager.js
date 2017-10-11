@@ -10,16 +10,9 @@ function DownloaderManager(url) {
     manager.getSettings(function(object) {
         var selectedOption = manager.getOptionSelected(object);
         
-        var downloader;
-
-        switch(selectedOption) {
-            case 0:
-            default:
-              downloader = new linkslockr.ChromeTabDownloader(url);
-              break;   
-        }
+        var downloader = linkslockr.downloaders[selectedOption];
         
-        downloader.download();
+        downloader.download(url);
     });
   }
 }

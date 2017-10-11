@@ -25,6 +25,7 @@
       "decrypters/decrypters.js",
       "settings/settings-manager.js",
       "downloaders/chrome-tab.js",
+      "downloaders/downloaders.js",
       "decrypter-manager.js",
       "downloader-manager.js",
       "menu-init.js"
