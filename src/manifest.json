@@ -3,28 +3,32 @@
   "description": "Decrypt CNL Links directly",
   "version": "0.1",
   "permissions": [
-	"contextMenus",
-	"http://safelinking.net/v1/protected",
-	"http://puya.si/enc*",
-	"https://codebeautify.org/encryptDecrypt/decrypt",
-	"http://relink.to/*",
-	"storage"
+    "contextMenus",
+    "http://safelinking.net/v1/protected",
+    "http://puya.si/enc*",
+    "https://codebeautify.org/encryptDecrypt/decrypt",
+    "http://relink.to/*",
+    "storage"
   ],
   "browser_action": {"default_popup": "settings/popup.html"},
   "background": {
     "persistent": false,
     "scripts": [
-	  "context-decrypter.js", 
-	  "utils/key-value-finder.js",
-	  "decrypters/common/base16-decrypter.js",
-	  "decrypters/common/rijndael-decrypter.js",
-	  "decrypters/safelink-decrypter.js", 
-	  "decrypters/puyalink-decrypter.js",
-	  "decrypters/relinkto-decrypter.js",
-	  "decrypters/decrypters.js", 
-	  "decrypter-manager.js", 
-	  "menu-init.js"
-	]
+      "namespaces.js",
+      "context-decrypter.js", 
+      "utils/key-value-finder.js",
+      "decrypters/common/base16-decrypter.js",
+      "decrypters/common/rijndael-decrypter.js",
+      "decrypters/safelink-decrypter.js", 
+      "decrypters/puyalink-decrypter.js",
+      "decrypters/relinkto-decrypter.js",
+      "decrypters/decrypters.js",
+      "settings/settings-manager.js",
+      "downloaders/chrome-tab.js",
+      "decrypter-manager.js",
+      "downloader-manager.js",
+      "menu-init.js"
+    ]
   },
   "manifest_version": 2
 }

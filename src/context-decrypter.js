@@ -1,6 +1,4 @@
-var linkslockr = {
-  ContextDecrypter: ContextDecrypter
-};
+linkslockr.ContextDecrypter = ContextDecrypter;
 
 function ContextDecrypter(decrypter) {
   this.decrypter = decrypter;

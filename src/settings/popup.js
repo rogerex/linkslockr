@@ -3,36 +3,29 @@ window.onload = function() {
   document.getElementById('option1').onclick = saveOption;
   document.getElementById('option2').onclick = saveOption;
 
-  getSettings(function(object) {
-    var selectedOption = 0;
-    
-    if (object.settings) {
-      if (object.settings.option)
-        selectedOption = object.settings.option;
-    }
+  var manager = new linkslockr.SettingsManager();
+  manager.getSettings(function(object) {
+    var selectedOption = manager.getOptionSelected(object);
 
     document.getElementById("option" + selectedOption).checked = true;
-    saveOptionInSettings(selectedOption);
+    
+    manager.saveOptionInSettings(selectedOption);
   });
 }
 
-function saveOption() {
+function saveOption() {  
+  var value = getOptionSelected();
+
+  var manager = new linkslockr.SettingsManager();
+  manager.saveOptionInSettings(value);
+}
+
+function getOptionSelected() {
   var options = document.getElementsByName("option");
   
   for(var i = 0; i < options.length; i++){
     if(options[i].checked){
-      var value = options[i].value;
-      saveOptionInSettings(value);
+      return options[i].value;
     }
   }
-}
-
-function saveOptionInSettings(option) {
-  chrome.storage.local.set({settings : { option: option } }, function() {
-    console.log('Set option in settings', option);
-  });
-}
-
-function getSettings(callback) {
-  return chrome.storage.local.get("settings", callback);
 }
