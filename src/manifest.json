@@ -5,7 +5,7 @@
   "permissions": [
 	"contextMenus",
 	"http://safelinking.net/v1/protected",
-	"http://puya.si/enc*",
+	"https://puya.moe/enc*",
 	"https://codebeautify.org/encryptDecrypt/decrypt",
 	"http://relink.to/*"
   ],

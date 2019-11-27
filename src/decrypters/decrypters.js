@@ -1,7 +1,7 @@
 linkslockr.decrypters = [
   {
     id: "puyaLink",
-    keys: ["http://puya.si/enc"],
+    keys: ["https://puya.moe/enc"],
     decrypter: linkslockr.PuyaLinkDecrypter
   },
   {
